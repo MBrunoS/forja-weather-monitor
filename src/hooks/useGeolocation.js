@@ -1,5 +1,4 @@
-import { api } from "@/api";
-import { API_CONFIG } from "@/utils/constants";
+import { weatherService } from "@/services/weatherService";
 import { useState } from "react";
 import { useEffect } from "react";
 
@@ -26,9 +25,7 @@ export const useGeolocation = (defaultLocation) => {
   const fetchGeolocation = async (locationName) => {
     let lat, lon;
     
-    const geoData = await api.get(
-      `${API_CONFIG.GEOLOCATION_PATH}?q=${locationName}&limit=1`
-    );
+    const geoData = await weatherService.getGeolocation(locationName);
 
     if (geoData && geoData.length > 0) {
       lat = geoData[0].lat;
